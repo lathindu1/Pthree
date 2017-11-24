@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title></ion-title>
+    <h3>welcome {{userdetails.name}}</h3>
+    
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    
+      <ion-item>
+        <ion-label floating>From</ion-label>
+      <ion-input  type="text" [(ngModel)]="userPostData.from_city"></ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label floating>To</ion-label>
+        <ion-input  type="text" [(ngModel)]="userPostData.to_city"></ion-input>
+      </ion-item>
+      <button ion-button block color="primary" (click)="getcity()">Find</button>
+    </ion-list>
+    <ion-card>
+      <ion-card-header>
+        
+    <h6>From:{{userPostData.from_city}}</h6>
+    <h6>To:{{userPostData.to_city}}</h6>
+      </ion-card-header>
+      <ion-card-content>
+      
+      </ion-card-content>
+     </ion-card> 
+     <ion-card *ngFor="let item of dataSet">
+      <ion-card-content>
+       <p [innerHTML]="item.bus_name"></p>
+       <h6><p [innerHTML]="item.bus_id" ></p><p [innerHTML]="item.b_time"></p></h6>
+       
+        <p [innerHTML]="item.bus_pno | linky"></p>
+      </ion-card-content>
+    </ion-card> 
+</ion-content>
