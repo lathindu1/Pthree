@@ -1,5 +1,5 @@
-<ion-header>
-  <ion-navbar>
+<ion-header> 
+  <ion-navbar color="bone">
     <ion-title>
       About
     </ion-title>
@@ -7,6 +7,20 @@
   <script src="getdata.js"></script>
 </ion-header>
 
-<ion-content padding>
+<ion-content class="bottomone" color="bthree">
 
+
+  <div #map id="map" >
+
+   
+  </div>
+<ion-card class="bottomone" color="bthree" >
+ <h2 text-center  >{{fromcity}}  <ion-icon ios="ios-bus" md="md-bus"></ion-icon>  {{tocity}}</h2>  
+ </ion-card>
+ <ion-card class="bottomone" color="bthree" >
+<p text-center>You have to go <ion-icon ios="ios-walk" md="md-walk"></ion-icon><span class="h4dis"> {{distancekm}} Km </span> to catch the Bus</p>
+<p text-center>Approximate Arrival time 
+  <ion-icon ios="ios-walk" md="md-walk"></ion-icon>
+  <span class="h4dis"> {{speedOfBus}} Minuts </span> to the neares Bus Stop</p>
+</ion-card>
 </ion-content>

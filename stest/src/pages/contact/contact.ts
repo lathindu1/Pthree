@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, App } from 'ionic-angular';
 import {WelcomePage} from '../welcome/welcome';
+
 @Component({
   selector: 'page-contact',
   templateUrl: 'contact.html'
@@ -19,6 +20,6 @@ export class ContactPage {
   logout(){
     // Remove API token 
     localStorage.clear();
-    setTimeout(()=>this.backtowelcome(),2000);
+    setTimeout(()=>this.backtowelcome(),2100);
 }
 }

@@ -13,28 +13,26 @@ import {TabsPage} from '../tabs/tabs'
 
 @IonicPage()
 @Component({
-  selector: 'page-welcome',
-  templateUrl: 'welcome.html',
+  selector: "page-welcome",
+  templateUrl: "welcome.html"
 })
 export class WelcomePage {
+  public UserDetails: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-
-if(localStorage.getItem('userData'))
-{
-  this.navCtrl.setRoot(TabsPage);
-}
-
+    if (localStorage.getItem("userData")) {
+      console.log("Local storage is full");
+      const data = JSON.parse(localStorage.getItem("userData"));
+      this.UserDetails = data.userData;
+      console.log(data.email);
+      this.navCtrl.setRoot(TabsPage);
+    }
   }
-  login(){
+  login() {
     this.navCtrl.push(LoginPage);
-    }
-  
-    signup(){
-    this.navCtrl.push(SignupPage);
-    }
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad WelcomePage');
   }
 
+  signup() {
+    this.navCtrl.push(SignupPage);
+  }
 }

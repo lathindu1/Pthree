@@ -1,44 +1,70 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
-import { TabsPage } from '../tabs/tabs';
+import {
+  IonicPage,
+  NavController,
+  AlertController,
+  ToastController
+} from "ionic-angular";
+// import { TabsPage } from '../tabs/tabs';
 import { LoginPage } from '../login/login';
-import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import {AngularFireAuth} from 'angularfire2/auth';
+import { User } from '../../models/user';
 
-/**
- * Generated class for the SignupPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+// import { FirebaseProvider } from "../../providers/firebase/firebase";
+
 
 @IonicPage()
 @Component({
-  selector: 'page-signup',
-  templateUrl: 'signup.html',
+  selector: "page-signup",
+  templateUrl: "signup.html",
+  providers: [AngularFireAuth]
 })
 export class SignupPage {
-  responseData : any;
-  userData = {"username": "","password": "", "name": "","email": ""};
-  constructor(public navCtrl: NavController, public authService: AuthServiceProvider) {
+  user = {} as User;
+  constructor(
+    public aFAuth: AngularFireAuth,
+    public navCtrl: NavController,
+    public alertCtrl: AlertController,
+    public toastCtrl: ToastController
+  ) {}
+
+  alert(message: string) {
+    let alert = this.alertCtrl.create({
+      title: "Info",
+      subTitle: message,
+      buttons: ["OK"]
+    });
+    alert.present();
   }
-  signup(){
-    this.authService.postData(this.userData,'signup').then((result) => {
-     this.responseData = result;
-     console.log(this.responseData);
-     localStorage.setItem('userData', JSON.stringify(this.responseData));
-     this.navCtrl.push(TabsPage);
-   }, (err) => {
-     // Error log
-   });
+  presentToast() {
+    let toast = this.toastCtrl.create({
+      message: "Pleace incert correct Email and password (password shoud be containg 6 characters)",
+      duration: 3000
+    });
+    toast.present();
+  }
+  async signup(user: User) {
+    try{
+   const result = this.aFAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
+      // .then(data => {
+        if(result)
+        {
+        this.alert("successfully You are signed up");
 
- }
-
- login(){
-  //Login page link
-  this.navCtrl.push(LoginPage);
-}
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SignupPage');
+        this.navCtrl.push(LoginPage);
+      
+                }        // })
+    }
+    catch (error) {
+      // .catch(error => {
+        // this.alert(error);
+        this.presentToast();
+      // });
+    }
   }
 
+  login() {
+    //Login page link
+    this.navCtrl.push(LoginPage);
+  }
 }

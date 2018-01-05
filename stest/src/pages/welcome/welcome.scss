@@ -1,17 +1,31 @@
 page-welcome {
+    .nav {
+        background: color($colors, backtwo);
 
+    }
     #welcome{
-        background: color($colors, energy);
-        h1{
-            font-size: 52px;
-            margin-top:50px
+        background: color($colors, backtwo);
+        h3{
+            font-size: 50px;
+            margin-top:20px;
+            color:#bfbfbf;
+
+        }
+        h6{
+            font-size: 30px;
+            margin-top:5px;
+            color:#f8f0f0;
+
         }
         .marginTop{
             margin-top:150px;
         }
         .logo{
             height: 100px;
+            margin-top: 50%;
+            margin-left: 25%;
         }
+        
     }
 
 }

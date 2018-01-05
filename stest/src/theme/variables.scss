@@ -40,10 +40,37 @@ $colors: (
   light:      #f4f4f4,
   dark:       #222,
   lightprimary:    #B5B5B7,
-  energy:             #f2b632
+  backone: #33334d,
+  backtwo: #222221,
+  backthree:#131311,
+
+  titleone:#f3faf8,
+  bone:#D2691E,
+  btwo:#D2691E,
+  bthree:#e4a125,
+  topone:#808080,
+  toptwo:#4dff4d,
+  ucredit:#f57f1e,
+
+
+
+
+
+
+  walltext: #bfbfbf,
+  walltext2:#f2f2f2
+
+
+
+
+
 );
 
-$toolbar-background: color($colors, primary);
+// $toolbar-background: color($colors, primary);
+// $app-background: linear-gradient(to bottom, color($colors, topone) 0%, color($colors, toptwo) 100%);
+// $background-color: transparent;
+// $toolbar-background: transparent;
+
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

@@ -1,41 +1,60 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title></ion-title>
-    <h3>welcome {{userdetails.name}}</h3>
-    
+<ion-header color="btwo">
+  <ion-navbar color="bone" >
+    <ion-title>
+      <img src="assets/imgs/busicon.png" class="logo" />
+SLNBTS
+
+    </ion-title>
+  
+  <!-- <div text-left color="light"><img src="assets/imgs/busicon.png" class="logo" /> SLNBTS</div> -->
+
+
+<ion-card color="ucredit" text-center>Logged in as {{UserDetails}}</ion-card>
+
   </ion-navbar>
+  
 </ion-header>
 
-<ion-content padding>
+<ion-content padding id="home" >
   <ion-list>
-    
-      <ion-item>
+    <ion-card color="backthree">
+      <ion-item color="backthree">
         <ion-label floating>From</ion-label>
-      <ion-input  type="text" [(ngModel)]="userPostData.from_city"></ion-input>
+      <ion-input  type="text" text-lowercase [(ngModel)]="routFind2.from" ></ion-input>
       </ion-item>
     
-      <ion-item>
+      <ion-item color="backthree">
         <ion-label floating>To</ion-label>
-        <ion-input  type="text" [(ngModel)]="userPostData.to_city"></ion-input>
+        <ion-input  type="text" text-lowercase [(ngModel)]="routFind2.to"></ion-input>
       </ion-item>
-      <button ion-button block color="primary" (click)="getcity()">Find</button>
+      </ion-card>
+<button ion-button block color="bone" (click)="FindBusList(routFind2)">Find</button>
+
     </ion-list>
-    <ion-card>
-      <ion-card-header>
-        
-    <h6>From:{{userPostData.from_city}}</h6>
-    <h6>To:{{userPostData.to_city}}</h6>
-      </ion-card-header>
-      <ion-card-content>
-      
-      </ion-card-content>
-     </ion-card> 
-     <ion-card *ngFor="let item of dataSet">
-      <ion-card-content>
-       <p [innerHTML]="item.bus_name"></p>
-       <h6><p [innerHTML]="item.bus_id" ></p><p [innerHTML]="item.b_time"></p></h6>
-       
-        <p [innerHTML]="item.bus_pno | linky"></p>
-      </ion-card-content>
-    </ion-card> 
+    <ion-list class="listone" >
+<ion-item *ngFor="let item of routFind$ | async" class="listone">
+<ion-card class="cards-bg social-cards">
+<ion-card-header class=" cardone">
+
+<!-- <ion-card-header text-center color="titleone"> -->
+<button ion-button full color="light"  (click)="openMapdaa(item.GpsId)" clear><h1 class="tt" color="light" text-center>{{item.$key }}</h1></button>
+
+</ion-card-header>
+    <!-- </ion-card-header> -->
+ 
+<ion-card-content>
+<h2 class="t1" text-left>{{item.BusName}}</h2>
+<h2 text-left>{{item.BusId }}</h2>
+<h2 text-right>{{item.PhoneNumber }}</h2>
+
+</ion-card-content>
+</ion-card>
+<!-- </ion-card> -->
+
+
+
+
+</ion-item>
+    </ion-list>
+   
 </ion-content>

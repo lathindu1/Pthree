@@ -1,7 +1,14 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
-import { TabsPage } from '..//tabs/tabs';
-import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { Component } from "@angular/core";
+import {
+  IonicPage,
+  NavController,
+  AlertController,
+  ToastController
+} from "ionic-angular";
+import { TabsPage } from "..//tabs/tabs";
+import { User } from "../../models/user";
+import { AngularFireAuth } from "angularfire2/auth";
+
 
 /**
  * Generated class for the LoginPage page.
@@ -12,27 +19,51 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 @IonicPage()
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
+  selector: "page-login",
+  templateUrl: "login.html",
+  providers: [AngularFireAuth]
 })
 export class LoginPage {
+  user = {} as User;
   responseData: any;
-  userData = { "username": "", "password": "" };
-  constructor(public navCtrl: NavController, public authService: AuthServiceProvider) {
-  }
-  login() {
-    this.authService.postData(this.userData, 'login').then((result) => {
-      this.responseData = result;
-      console.log(this.responseData);
-      localStorage.setItem('userData', JSON.stringify(this.responseData));
-      this.navCtrl.push(TabsPage);
-    }, (err) => {
-      // Error log
+  userData = { email: "", password: "" };
+  constructor(
+    public navCtrl: NavController,
+    public aFAuth: AngularFireAuth,
+    private alertCtrl: AlertController,
+    public toastCtrl: ToastController
+  ) {}
+  alert(message: string) {
+    let alert = this.alertCtrl.create({
+      title: "Info",
+      subTitle: message,
+      buttons: ["OK"]
     });
+    alert.present();
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+  presentToast() {
+    let toast = this.toastCtrl.create({
+      message:
+        "Incorrect Login creditials",
+      duration: 3000
+    });
+    toast.present();
   }
+  async login(user: User) {
+    try {
+      this.aFAuth.auth.signInWithEmailAndPassword(user.email, user.password);
+      // .then(data => {
+      this.alert("successfully You are logged in");
 
+      this.responseData = user;
+      console.log(this.responseData);
+      localStorage.setItem("userData", JSON.stringify(this.responseData));
+
+      this.navCtrl.setRoot(TabsPage);
+      // })
+    } catch (error) {
+      //  this.presentToast();
+        this.alert("Error Password of User Name");
+    }
+  }
 }
